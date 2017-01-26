@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   def add_favorite(post)
     # Need to create a favorite
     Favorite.create(
-      user_id: id, # self.id
-      post_id: post.id
+        user_id: id, # self.id
+        post_id: post.id
     )
   end
 

@@ -1,0 +1,21 @@
+<h1>Dashboard</h1>
+
+
+<table class="table table-sm table-striped table-hover table-condensed table-bordered">
+  <thead>
+  <tr>
+    <th>Favorited Posts</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% current_user.favorite_posts.each do |fp| %>
+      <tr>
+        <td>
+          <a href="/posts/<%= fp.id %>">
+            <%= fp.title %>
+          </a>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

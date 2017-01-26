@@ -51,3 +51,41 @@ end
 And(/^there should be no new user accounts$/) do
   expect(User.count).to eq 1
 end
+
+Given(/^I'm an existing user$/) do
+  @user = User.create email: Faker::Internet.email, password: Faker::LordOfTheRings.character
+end
+
+
+And(/^I navigate to the sign\-in page$/) do
+  visit '/users/sign_in'
+end
+
+When(/^I enter my credentials and click log in$/) do
+  fill_in 'user_email', with: @user.email
+  fill_in 'user_password', with: @user.password
+  click_on 'Log in'
+end
+
+Then(/^I am signed in$/) do
+  expect(page.has_content? 'Signed in as').to eq true
+end
+
+When(/^I click log out$/) do
+  click_on 'Log out'
+end
+
+Then(/^I am signed out$/) do
+  expect(page.has_content? 'Log In').to eq true
+
+end
+
+When(/^I enter some credentials and click log in$/) do
+  fill_in 'user_email', with: 'notauser@notauser123.com'
+  fill_in 'user_password', with: 'notauser'
+  click_on 'Log in'
+end
+
+Then(/^I am not signed in$/) do
+  expect(page.has_content? 'Log In').to eq true
+end
